@@ -34,6 +34,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e33', end
 
 }
 
+.navbar-dark .navbar-nav .nav-link {
+	color:#ffffff;
+	font-weight: 500;
+}
+
 
 .img-thumbnail{
 	margin-left:0.5rem;
