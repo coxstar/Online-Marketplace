@@ -109,5 +109,37 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e33', end
 
 
 
+/*  ------------------------------------------------------------------ start home page main body  -------------------------------------------- */
+.row_one{
+	background-color: #ffffff;	
+}
+
+.category_list{
+	margin-left:1rem;
+}
+
+.letest_update{
+	background-image: linear-gradient(110deg, #e6662b, #1b33b9);
+	margin-right:0.5rem;
+	padding:0.5rem;
+	font-size:15px;
+	text-align: center;
+	color:#ffffff;
+	border-radius:0.3rem;
+}
+
+.btn-link{
+	color:#ff0000;
+}
+
+.price_tag{
+	text-align: center;
+	font-weight: 600;
+	color:red;
+}
+
+/*-------------------------------------------------------------- end 1st section (slide, my store , recent update section) ---------------------------------- */ 
+
+
 
 
