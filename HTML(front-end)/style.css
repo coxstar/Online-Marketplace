@@ -395,3 +395,63 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e33', end
 	background : linear-gradient(135deg,  rgba(137,106,59,1) 0%,rgba(201,152,78,1) 29%,rgba(214,183,70,1) 50%,rgba(247,217,84,1) 73%,rgba(145,145,24,1) 98%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#896a3b', endColorstr='#919118',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
+
+
+
+
+
+
+/* ------------------------------------------------------------ footer section start here ------------------------------------------- */
+
+.footer-link{
+
+	color:white;
+	font-size:16px;
+
+}
+.footer-link:hover{
+
+	color:rgb(236, 78, 78);
+	font-size:18px;
+	
+	
+}
+
+
+/* -------------------------------------------------------- footer social icon style starts here -------------------------------------- */
+.social-icon {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.social-icon li {
+    display: inline-block;
+    list-style: none;
+}
+
+.social-icon li a {
+	border:circle;
+    color: #292929;
+    cursor: pointer;
+    font-size: 30px;
+    text-decoration: none;
+    transition: all 0.4s ease-in-out;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+	margin: 22px 12px 10px 12px;
+	padding-top: 3rem;
+}
+
+.social-icon li a:hover {
+    border-color: #bfba55;
+    color: #bfba55;
+    transform: scale(1.1);
+}
+
+/* -------------------------------------------------------- footer social icon style end here -------------------------------------- */
