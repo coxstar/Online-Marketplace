@@ -1,6 +1,24 @@
 .container {
 	max-width: 75%;
 }
+
+@media screen and (max-width: 780px) {
+    div.container {
+        max-width: 100%;
+    }
+
+    
+  }
+
+  @media screen and (max-width: 1400px) {
+    div.container {
+        max-width: 99%;
+    }
+
+    
+  }
+
+
 /*---------------------------------------------------------------------- 1st navbar ----------------------------------------------- */
 
 .hot_line{
@@ -36,6 +54,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e33', end
 	color:#ffffff;
 	font-weight: 500;
 }
+
+
+.login_link{
+	color:#ff6c6c; 
+	text-decoration:none;
+}
+
+.login .login_link:hover{
+	margin-top:5px;
+	/* color:#ff6c6c;  */
+	text-decoration:none;
+}
+
 
 
 /* ----------------------------------------------------- search box css -------------------------------------- */
@@ -90,12 +121,36 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e33', end
 
 }
 
-@media screen and (max-width: 620px) {
+@media screen and (max-width: 780px) {
 .searchBox:hover > .searchInput {
     width: 150px;
     padding: 0 6px;
 }
 }
+
+@media screen and (max-width: 780px) {
+	.searchBox{
+
+		transform:  translate(-70%,0%);
+		left:70%;
+	}
+	}
+
+@media screen and (max-width: 1400px) {
+	.searchBox:hover > .searchInput {
+		width: 250px;
+		padding: 0 6px;
+	}
+	}
+
+	@media screen and (max-width: 1400px) {
+		.searchBox{
+
+			transform:  translate(-70%,0%);
+		}
+		}
+
+
 
 
 /* ---------------------------------------------------------------------------end navbar ----------------------------------------------------------------------- */
@@ -137,3 +192,206 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e33', end
 
 
 
+
+
+
+
+.row_two{
+	/* background-color: #ffffff; */
+
+	background: #feccb1; /* Old browsers */
+	background: -moz-linear-gradient(-45deg,  #feccb1 0%, #f17432 50%, #ea5507 51%, #fb955e 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(-45deg,  #feccb1 0%,#f17432 50%,#ea5507 51%,#fb955e 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(135deg,  #feccb1 0%,#f17432 50%,#ea5507 51%,#fb955e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feccb1', endColorstr='#fb955e',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+
+}
+
+
+
+.summersale_head{
+	font-size:24px;
+	font-weight: 600;
+	text-align:center;
+	padding: 0.1rem;
+	margin-top:5px;
+	color:#000000;
+}
+
+.section_head{
+	font-size:24px;
+	font-weight: 600;
+	text-align:center;
+	padding: 0.1rem;
+	margin-top:5px;
+	color:#ffffff;
+
+/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#205899+0,ff3d3d+50,83c0ef+100&0.33+0,1+50,0.3+100 */
+background: -moz-linear-gradient(left,  rgba(32,88,153,0.33) 0%, rgba(255,61,61,1) 50%, rgba(131,192,239,0.3) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  rgba(32,88,153,0.33) 0%,rgba(255,61,61,1) 50%,rgba(131,192,239,0.3) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  rgba(32,88,153,0.33) 0%,rgba(255,61,61,1) 50%,rgba(131,192,239,0.3) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#54205899', endColorstr='#4d83c0ef',GradientType=1 ); /* IE6-9 */
+
+}
+
+
+/*--------------------------------------------------------------------------- product on sale images ----------------------------------------------*/
+
+/* .overlay_right{
+	display: block;
+	opacity:0;
+	position: absolute;
+	top:10%;
+	margin-left:0;
+	widows: 70%;
+} */
+
+/* .overlay_right .fa{
+	cursor: pointer;
+	background-color:#ff4b4b;
+	color:#ffffff;
+	height: 35px;
+	width:35px;
+	font-size:20px;
+	padding: 7px;
+	margin-top:5%;
+	margin-bottom: 5%;
+	border-radius: 12px;
+
+} */
+
+
+/* .overlay_right .btn-secondary{
+
+	background: none !important;
+	border: none !important;
+	box-shadow: none !important;
+	
+} */
+
+/* .product_one_sale_top:hover .overlay_right{
+
+	opacity: 0.8;
+	margin-left:5%
+} */
+/* .mx-auto{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+} */
+
+
+/* =========================================================================== on image button css removed================================= */
+
+.text-center .img-thumbnail:hover{
+	transform:scale(1.1);
+}
+
+.price_tag{
+	font-weight: 600;
+	color:#ea5507;
+	font-size: 18px;
+
+}
+
+.product_one_sale_bottom{
+	text-align: center;
+	font-weight:600;
+}
+
+
+.product_one_sale_bottom .btn-secondary{
+
+	background-color:#ffffff;
+	color:#fb955e;
+	height: 35px;
+	width:35px;
+	font-size:20px;
+	padding: 2px;
+	margin-top:5%;
+	margin-bottom: 5%;
+	border-radius: 12px;
+}
+
+
+.btn-secondary:hover{
+	transform:scale(1.1);
+	color:#ff2121;
+	margin-left:5%;
+	margin-right: 5%;
+	
+}
+
+
+
+/* ---------------------------------------------------------- jewlry product css start here ------------------------------------------------- */
+
+
+
+/* ------------------------------------------------------------------ start feature section -----------------------------*/
+
+.section_head2{
+	font-size:28px;
+	font-weight: 600;
+	text-align:center;
+	padding: 5px;
+	margin-top:5px;
+	/* color:#ffffff; */
+	margin-left: 2rem;
+
+	color: rgb(137,106,59); /* Old browsers */
+	color: -moz-linear-gradient(-45deg,  rgba(137,106,59,1) 0%, rgba(201,152,78,1) 29%, rgba(214,183,70,1) 50%, rgba(247,217,84,1) 73%, rgba(145,145,24,1) 98%); /* FF3.6-15 */
+	color: -webkit-linear-gradient(-45deg,  rgba(137,106,59,1) 0%,rgba(201,152,78,1) 29%,rgba(214,183,70,1) 50%,rgba(247,217,84,1) 73%,rgba(145,145,24,1) 98%); /* Chrome10-25,Safari5.1-6 */
+	color: linear-gradient(135deg,  rgba(137,106,59,1) 0%,rgba(201,152,78,1) 29%,rgba(214,183,70,1) 50%,rgba(247,217,84,1) 73%,rgba(145,145,24,1) 98%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#896a3b', endColorstr='#919118',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+
+/* 
+.section_divider{
+
+	padding: 6px;
+	margin-top:25px;
+	
+} */
+
+
+.row_three{
+	background: -moz-linear-gradient(-45deg,  rgba(14,14,51,1) 0%, rgba(206,76,53,1) 32%, rgba(140,69,239,1) 64%, rgba(39,37,163,0.89) 93%, rgba(36,36,160,0.89) 94%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg,  rgba(14,14,51,1) 0%,rgba(206,76,53,1) 32%,rgba(140,69,239,1) 64%,rgba(39,37,163,0.89) 93%,rgba(36,36,160,0.89) 94%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg,  rgba(14,14,51,1) 0%,rgba(206,76,53,1) 32%,rgba(140,69,239,1) 64%,rgba(39,37,163,0.89) 93%,rgba(36,36,160,0.89) 94%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e33', endColorstr='#e32424a0',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+
+
+/* --------------------------------------------------------------- Men's Fashion css start here ------------------------------------------------------- */
+.section_head3{
+	font-size:28px;
+	font-weight: 600;
+	text-align:center;
+	padding: 5px;
+	margin-top:5px;
+	/* color:#ffffff; */
+	/* margin-left: 2rem; */
+		
+	color: -moz-linear-gradient(-45deg,  rgba(0,8,84,1) 0%, rgba(0,8,84,0.99) 1%, rgba(87,88,153,0.07) 98%, rgba(87,88,153,0.05) 100%); /* FF3.6-15 */
+	color: -webkit-linear-gradient(-45deg,  rgba(0,8,84,1) 0%,rgba(0,8,84,0.99) 1%,rgba(87,88,153,0.07) 98%,rgba(87,88,153,0.05) 100%); /* Chrome10-25,Safari5.1-6 */
+	color: linear-gradient(135deg,  rgba(0,8,84,1) 0%,rgba(0,8,84,0.99) 1%,rgba(87,88,153,0.07) 98%,rgba(87,88,153,0.05) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000854', endColorstr='#0d575899',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+
+
+}
+
+/* --------------------------------------------------------------- Men's Fashion css start here ------------------------------------------------------- */
+
+.summersale_head{
+	background : rgb(137,106,59); /* Old browsers */
+	background : -moz-linear-gradient(-45deg,  rgba(137,106,59,1) 0%, rgba(201,152,78,1) 29%, rgba(214,183,70,1) 50%, rgba(247,217,84,1) 73%, rgba(145,145,24,1) 98%); /* FF3.6-15 */
+	background : -webkit-linear-gradient(-45deg,  rgba(137,106,59,1) 0%,rgba(201,152,78,1) 29%,rgba(214,183,70,1) 50%,rgba(247,217,84,1) 73%,rgba(145,145,24,1) 98%); /* Chrome10-25,Safari5.1-6 */
+	background : linear-gradient(135deg,  rgba(137,106,59,1) 0%,rgba(201,152,78,1) 29%,rgba(214,183,70,1) 50%,rgba(247,217,84,1) 73%,rgba(145,145,24,1) 98%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#896a3b', endColorstr='#919118',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
