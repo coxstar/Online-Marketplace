@@ -1,3 +1,5 @@
+
+
 .container {
 	max-width: 75%;
 }
@@ -18,8 +20,7 @@
     
   }
 
-
-/*---------------------------------------------------------------------- 1st navbar ----------------------------------------------- */
+/*---------------------------------------------------------------------- navbar ----------------------------------------------- */
 
 .hot_line{
 	font-size:0.8rem;
@@ -27,7 +28,7 @@
 	
 }
 
-/* -----------------------------------------------------main navbar ------------------------------------- */
+/* -------------------------------------------------------------------------- navbar ---------------------------------------------- */
 
 .bg-primary {
 
@@ -50,11 +51,26 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e33', end
 
 }
 
+/* =============================================================== category css =================================================== */
 .navbar-dark .navbar-nav .nav-link {
 	color:#ffffff;
 	font-weight: 500;
 }
+.list-group-item .nav-link2 {
+	color: #ff7300;
+	text-decoration: none;
+	background-color: transparent;
+}
 
+.list-group-item .nav-link2:hover{
+	color: #2d82d1;
+	text-decoration: none;
+	font-weight: bold;
+	background-color: transparent;
+	font-size:18px;
+	
+
+}
 
 .login_link{
 	color:#ff6c6c; 
@@ -67,10 +83,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e33', end
 	text-decoration:none;
 }
 
-
-
-/* ----------------------------------------------------- search box css -------------------------------------- */
-
+/* search box css */
 .searchBox {
     position: relative;
     /* top: 50%; */
@@ -85,7 +98,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e33', end
 }
 
 .searchBox:hover > .searchInput {
-    width: 340px;
+    width: 350px;
     padding: 0 6px;
 }
 
@@ -152,12 +165,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e33', end
 
 
 
-
-/* ---------------------------------------------------------------------------end navbar ----------------------------------------------------------------------- */
-
-
-
-
 /*  ------------------------------------------------------------------ start home page main body  -------------------------------------------- */
 .row_one{
 	background-color: #ffffff;	
@@ -177,6 +184,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e33', end
 	border-radius:0.3rem;
 }
 
+
+
+@media screen and (max-width: 780px) {
+	.letest_update {
+		margin-right:0rem;
+	}
+	}
+
+
+	
 .btn-link{
 	color:#ff0000;
 }
@@ -188,13 +205,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e33', end
 }
 
 /*-------------------------------------------------------------- end 1st section (slide, my store , recent update section) ---------------------------------- */ 
+git
 
 
 
 
-
-
-
+/* ------------------------------------------------------------------ start feature section -----------------------------*/
 
 .row_two{
 	/* background-color: #ffffff; */
@@ -330,7 +346,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#54205899', e
 
 
 
-/* ------------------------------------------------------------------ start feature section -----------------------------*/
+
 
 .section_head2{
 	font-size:28px;
@@ -369,19 +385,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e33', end
 
 /* --------------------------------------------------------------- Men's Fashion css start here ------------------------------------------------------- */
 .section_head3{
-	font-size:28px;
+	font-size:20px;
 	font-weight: 600;
 	text-align:center;
-	padding: 5px;
+	/* padding: 5px; */
 	margin-top:5px;
-	/* color:#ffffff; */
+	color:#ffffff;
 	/* margin-left: 2rem; */
 		
-	color: -moz-linear-gradient(-45deg,  rgba(0,8,84,1) 0%, rgba(0,8,84,0.99) 1%, rgba(87,88,153,0.07) 98%, rgba(87,88,153,0.05) 100%); /* FF3.6-15 */
-	color: -webkit-linear-gradient(-45deg,  rgba(0,8,84,1) 0%,rgba(0,8,84,0.99) 1%,rgba(87,88,153,0.07) 98%,rgba(87,88,153,0.05) 100%); /* Chrome10-25,Safari5.1-6 */
-	color: linear-gradient(135deg,  rgba(0,8,84,1) 0%,rgba(0,8,84,0.99) 1%,rgba(87,88,153,0.07) 98%,rgba(87,88,153,0.05) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000854', endColorstr='#0d575899',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-
+	
 
 
 }
@@ -395,7 +407,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e33', end
 	background : linear-gradient(135deg,  rgba(137,106,59,1) 0%,rgba(201,152,78,1) 29%,rgba(214,183,70,1) 50%,rgba(247,217,84,1) 73%,rgba(145,145,24,1) 98%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#896a3b', endColorstr='#919118',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
-
 
 
 
@@ -464,6 +475,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e33', end
 
 
 
+
+
+
+
+
+
+
+
 /* -------------------------------------------------------- about us page start here -------------------------------------- */
 
 
@@ -476,3 +495,57 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e33', end
 
 
 /* -------------------------------------------------------- about us page end here -------------------------------------- */
+
+
+
+
+
+
+
+
+
+/* --------------------------------------------------------------- login page start here ------------------------------------------------------- */
+
+
+.login-head{
+	font-weight: 600;
+	text-align: center;
+	font-size:18px;
+}
+
+
+.btn-success:hover{
+	background-color: rgb(47, 108, 201);
+}
+
+.btn-success{
+	font-size:12px;
+}
+
+.forgetpass-link{
+	color:rgb(0, 0, 0);
+}
+
+.forgetpass-link:hover{
+	color:rgb(255, 66, 66);
+}
+
+
+
+/* ---------------------------------------------------------------login page end here ------------------------------------------------------- */
+
+
+
+
+/* ---------------------------------------------------------------account info page start here ------------------------------------------------------- */
+
+
+
+
+.btn-light{
+	
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+
+	font-size: 12px;
+}
