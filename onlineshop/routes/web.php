@@ -50,3 +50,20 @@ Route::get('/editCategory/{category_id}', 'categoryController@editCategory');
 Route::post('/updateCategory/{category_id}', 'categoryController@updateCategory');
 
 Route::get('/deleteCategory/{category_id}', 'categoryController@deleteCategory');
+
+
+//product routes are here
+
+Route::get('/addProduct', 'productController@index');
+
+Route::post('/saveProduct', 'productController@saveProduct');
+
+Route::get('/allProduct', 'productController@allProduct');
+
+Route::get('/inactiveProduct/{product_id}', 'productController@inactiveProduct');
+Route::get('/activeProduct/{product_id}', 'productController@activeProduct');
+Route::get('/deleteProduct/{product_id}', 'productController@deleteProduct');
+
+Route::get('/editProduct/{product_id}', 'productController@editProduct');
+
+Route::post('/updateProduct/{product_id}', 'productController@updateProduct');
