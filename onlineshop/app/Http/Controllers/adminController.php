@@ -15,12 +15,6 @@ class adminController extends Controller
         return view('adminLogin');
     }
 
-    public function showDashboard()
-    {
-        return view('admin/dashboard');
-    }
-
-
     public function dashboard(Request $request)
     {
         $admin_name = $request->username;
@@ -32,13 +26,17 @@ class adminController extends Controller
             
         if($result)
         {
+                       
             Session::put('admin_email',$result->admin_email);
             Session::put('admin_id',$result->admin_id);
             return Redirect::to('/dashboard');
+            Session::put('admin_name',$admin_name->username);
+            
         }
         else
         {
             Session::put('messege','email or password not currect');
+            
             return Redirect::to('/admin');
 
         }
