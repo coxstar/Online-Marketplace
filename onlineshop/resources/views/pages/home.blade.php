@@ -23,24 +23,19 @@
 
                 <!-- categroy name inserted here -->
               
+              <?php 
+                  $allPublishCategory = DB::table('tbl_category')
+                        ->where('publication_status',1)
+                        ->get();
+              
+              foreach($allPublishCategory as $vCategory){ ?>
+
+              
+
                 <li class="list-group-item">
-                  <a class="nav-link2" href="#">Men's Fashion</a>    
+                  <a class="nav-link2" href="{{URL::to('/productByCategory/'.$vCategory->category_id)}}">{{$vCategory->category_name}}</a>    
                 </li>
-                <li class="list-group-item">
-                  <a class="nav-link2" href="#">Women's Fashion</a>
-                </li>
-                <li class="list-group-item">
-                    <a class="nav-link2" href="#">Bags and shoes</a>
-                  </li>
-                  <li class="list-group-item">
-                      <a class="nav-link2" href="#">Watches</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a class="nav-link2" href="#">Jewelry</a>
-                      </li>
-                      <li class="list-group-item">
-                          <a class="nav-link2" href="#">Phone & Computer</a>
-                        </li>
+              <?php } ?>
                 
                 <li class="list-group-item"><a class="nav-link2" href="#">All Category</a></li>
               </ul>
@@ -54,43 +49,34 @@
 
         <div class="col"style="margin-top:1.5rem; margin-bottom:1.5rem;">          
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
                 <ol class="carousel-indicators">
-                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="7"></li>
+                
+                 <?php 
+                  $allSliderInfo = DB::table('tbl_slider')
+                  ->where('publication_status',1)
+                  ->get();
+                  ?>
+                 
+                  @foreach ($allSliderInfo as $vSlider)
+                
+                  <li data-target="#carouselExampleIndicators" data-slide-to="{{$loop->index}}" class="{{$loop->first ? 'active' : ''}}"></li>
+
+                  @endforeach
                 </ol>
+
+                
                 <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img src="images/wb1.jpg" class="d-block w-100" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="images/pc5.jpg" class="d-block w-100" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="images/wb2.jpg" class="d-block w-100" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                      <img src="images/lb8.jpg" class="d-block w-100" alt="...">
-                    </div>
-                  <div class="carousel-item">
-                    <img src="images/s1.jpg" class="d-block w-100" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="images/pcb1.jpg" class="d-block w-100" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="images/rb1.jpg" class="d-block w-100" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="images/rb2.jpg" class="d-block w-100" alt="...">
+                
+                 
+                @foreach ($allSliderInfo as $vSlider)
+                  <div class="carousel-item {{$loop->first ? 'active' : ''}}">
+                    <img src="{{URL::to($vSlider -> slider_image)}}" class="d-block w-100" alt="...">
                   </div>
 
+                    @endforeach
                 </div>
+
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                   <span class="sr-only">Previous</span>
@@ -150,7 +136,6 @@
 
 
 
-
 <!-- =================================================== populer item section start here================================================================= -->
 
 
@@ -178,17 +163,29 @@
 
   <!-- ============================================= on sale 1st product is here ======================================== -->
 
+<?php 
+  $onSaleProduct = DB::table('tbl_products')
+  ->join('tbl_category','tbl_products.category_id','=','tbl_category.category_id')
+  ->select('tbl_products.*','tbl_category.category_name')
+  ->where ('tbl_products.publication_status',1)
+  ->limit(6)
+  ->get();
+
+  foreach($onSaleProduct as $vOnsale)
+  {
+
+?>
+
   <div class="col-md-offset-1 col-md-2 col-sm-2">
     <div  class="product_one_sale_top">
       <div class="text-center">
-          <img src="images/4.jpeg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
+          <img src="{{URL::to($vOnsale -> product_image)}}" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
       </div>
 
       <div class="product_one_sale_bottom">
         
+      <form action="{{url('/addCart')}}" method="post">
+        {{ csrf_field() }}
 
           <button type="button" class="btn btn-secondary" title="Quick Shop">
             <i class="fa fa-eye"></i>
@@ -196,178 +193,22 @@
           <button type="button" class="btn btn-secondary" title="Add to Wish-list">
             <i class="far fa-heart"></i>
             </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
+            <input name="qty" type="hidden" value="1" />
+            <input type="hidden" name="productId" value="{{$vOnsale->product_id}}" />
+          <button type="submit" class="btn btn-secondary" title="Add to Cart">
               <i class="fa fa-shopping-cart"></i>
             </button>
+          </form>
 
-
-          <h5 class="product_name">Titan Multi Dial Watch</h5>
-          <h6 class="price_tag">$115.00</h6>
+          <a href="{{URL::to('/productDetails/'.$vOnsale->product_id)}}"><h5 class="product_name">{{$vOnsale -> product_name}}</h5></a>
+          <h6 class="price_tag">{{$vOnsale -> product_price}} TK</h6>
       </div>
+    </div>  
   </div>
 
+  <?php }?>
 
-  <!-- ============================================= on sale 2st product is here ======================================== -->
-
-
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/s6.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Hrx Black Sneakers</h5>
-          <h6 class="price_tag">$225.00</h6>
-      </div>
-  </div>
-
-
-  <!-- ============================================= on sale 3rd product is here ======================================== -->
-
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/r9.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Silver Cristal Stone Ring</h5>
-          <h6 class="price_tag">$2225.00</h6>
-      </div>
-  </div>
-
-  <!-- ============================================= on sale 4th product is here ======================================== -->
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/m4.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Oppo Selfie EXpert</h5>
-          <h6 class="price_tag">$150.00</h6>
-      </div>
-  </div>
-
-  <!-- ============================================= on sale 5th product is here ======================================== -->
-
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/pc2.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Nzxt h700i Black Red Edition</h5>
-          <h6 class="price_tag">$199.00</h6>
-      </div>
-  </div>
-
-
-  <!-- ============================================= on sale 6th product is here ======================================== -->
-
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/t4.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Puma T-Shirt</h5>
-          <h6 class="price_tag">$25.00</h6>
-      </div>
-  </div>
-
-
-
-    </div>
-  </div>
+</div>
 </section> <br>
 
 
@@ -419,10 +260,28 @@
 
   <!-- ============================================= jewelry  1st product is here ======================================== -->
 
+
+  <?php 
+    $jewelryProduct = DB::table('tbl_products')
+    ->join('tbl_category','tbl_products.category_id','=','tbl_category.category_id')
+    ->select('tbl_products.*','tbl_category.category_name')
+    ->where ('tbl_products.publication_status',1)
+    ->where('tbl_products.category_id',6)
+    ->limit(6)
+    ->get();
+
+foreach($jewelryProduct as $vJewelry)
+{
+
+?>
+
+
+
+
   <div class="col-md-offset-1 col-md-2 col-sm-2">
     <div  class="product_one_sale_top">
       <div class="text-center">
-          <img src="images/r1.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
+          <img src="{{URL::to($vJewelry -> product_image)}}" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
       </div>
      
 
@@ -431,38 +290,8 @@
       <div class="product_one_sale_bottom">
         
 
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Gold Ring</h5>
-          <h6 class="price_tag">$1225.00</h6>
-      </div>
-  </div>
-
-
-  <!-- ============================================= jewelry  2st product is here ======================================== -->
-
-
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/r2.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
+      <form action="{{url('/addCart')}}" method="post">
+        {{ csrf_field() }}
 
           <button type="button" class="btn btn-secondary" title="Quick Shop">
             <i class="fa fa-eye"></i>
@@ -470,145 +299,25 @@
           <button type="button" class="btn btn-secondary" title="Add to Wish-list">
             <i class="far fa-heart"></i>
             </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
+            <input name="qty" type="hidden" value="1" />
+            <input type="hidden" name="productId" value="{{$vJewelry->product_id}}" />
+          <button type="submit" class="btn btn-secondary" title="Add to Cart">
               <i class="fa fa-shopping-cart"></i>
             </button>
+          </form>
 
-
-          <h5 class="product_name">White Gold Ring</h5>
-          <h6 class="price_tag">$2225.00</h6>
+          <a href="{{URL::to('/productDetails/'.$vJewelry->product_id)}}"><h5 class="product_name">{{$vJewelry -> product_name}}</h5></a>
+          
+          <h6 class="price_tag">{{$vJewelry -> product_price}} TK</h6>
       </div>
   </div>
 
 
-  <!-- ============================================= jewelry  3rd product is here ======================================== -->
+  <?php }?>
 
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/r3.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">White Gold Casual Ring
-          </h5>
-          <h6 class="price_tag">$325.00</h6>
-      </div>
   </div>
-  <!-- ============================================= jewelry  4th product is here ======================================== -->
+</div>
 
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/r4.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Diamond Ring</h5>
-          <h6 class="price_tag">$5225.00</h6>
-      </div>
-  </div>
-
-  <!-- ============================================= jewelry  5th product is here ======================================== -->
-
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/r6.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Diamond Wedding Ring</h5>
-          <h6 class="price_tag">$7225.00</h6>
-      </div>
-  </div>
-
-
-  <!-- ============================================= jewelry  6th product is here ======================================== -->
-
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/r5.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Gold Wedding Ring</h5>
-          <h6 class="price_tag">$4225.00</h6>
-      </div>
-  </div>
-
-
-
-    </div>
-    </div>
   </div>
 </section><br>
 
@@ -660,10 +369,25 @@
 
   <!-- ============================================= Men's Fashion  1st product is here ======================================== -->
 
+  <?php 
+    $menFashionProduct = DB::table('tbl_products')
+    ->join('tbl_category','tbl_products.category_id','=','tbl_category.category_id')
+    ->select('tbl_products.*','tbl_category.category_name')
+    ->where ('tbl_products.publication_status',1)
+    ->where('tbl_products.category_id',1)
+    ->limit(6)
+    ->get();
+
+foreach($menFashionProduct as $vMenFashion)
+{
+
+?>
+
+
   <div class="col-md-offset-1 col-md-2 col-sm-2">
     <div  class="product_one_sale_top">
       <div class="text-center">
-          <img src="images/s3.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
+          <img src="{{URL::to($vMenFashion -> product_image)}}" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
       </div>
      
 
@@ -672,37 +396,8 @@
       <div class="product_one_sale_bottom">
         
 
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Puma Suede</h5>
-          <h6 class="price_tag">$350.00</h6>
-      </div>
-  </div>
-
-  <!-- ============================================= Men's Fashion  2st product is here ======================================== -->
-
-
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/s4.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
+      <form action="{{url('/addCart')}}" method="post">
+        {{ csrf_field() }}
 
           <button type="button" class="btn btn-secondary" title="Quick Shop">
             <i class="fa fa-eye"></i>
@@ -710,156 +405,31 @@
           <button type="button" class="btn btn-secondary" title="Add to Wish-list">
             <i class="far fa-heart"></i>
             </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
+            <input name="qty" type="hidden" value="1" />
+            <input type="hidden" name="productId" value="{{$vMenFashion->product_id}}" />
+          <button type="submit" class="btn btn-secondary" title="Add to Cart">
               <i class="fa fa-shopping-cart"></i>
             </button>
+          </form>
 
-
-          <h5 class="product_name">Full Black Sneaker</h5>
-          <h6 class="price_tag">$299.00</h6>
+          
+          <a href="{{URL::to('/productDetails/'.$vMenFashion->product_id)}}"><h5 class="product_name">{{$vMenFashion -> product_name}}</h5></a>
+          
+          <h6 class="price_tag">{{$vMenFashion -> product_price}} TK</h6>
       </div>
   </div>
 
+    <?php }?>
 
-  <!-- ============================================= Men's Fashion  3rd product is here ======================================== -->
-
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/t2.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Avengers T-Shirt</h5>
-          <h6 class="price_tag">$99.00</h6>
-      </div>
-  </div>
-  <!-- ============================================= Men's Fashion  4th product is here ======================================== -->
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/t1.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">White T-Shirt</h5>
-          <h6 class="price_tag">$99.00</h6>
-      </div>
-  </div>
-
-  <!-- ============================================= Men's Fashion  5th product is here ======================================== -->
-
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/mf1.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Blue Casual Shirt</h5>
-          <h6 class="price_tag">$120.00</h6>
-      </div>
-  </div>
-
-
-  <!-- ============================================= Men's Fashion  6th product is here ======================================== -->
-
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/mf8.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Summer Shirt</h5>
-          <h6 class="price_tag">$625.00</h6>
-      </div>
-  </div>
-
-
-      </div>
     </div>
+    </div>
+
   </div>
 </section><br>
 
 
 
 <!-- ==================================================================== Men's Fashion end here ===================================================== -->
-
-
-
-
-
-<!-- ==================================================================== phone & computer start here ===================================================== -->
-
 
 
 
@@ -901,10 +471,18 @@
 
   <!-- ============================================= Phone & computer  1st product is here ======================================== -->
 
+
+
+  <?php 
+  
+foreach($phoneAndComputerProduct as $vPhoneAndComputer)
+{
+
+?>
   <div class="col-md-offset-1 col-md-2 col-sm-2">
     <div  class="product_one_sale_top">
       <div class="text-center">
-          <img src="images/k1.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
+          <img src="{{URL::to($vPhoneAndComputer -> product_image)}}" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
       </div>
      
 
@@ -913,38 +491,8 @@
       <div class="product_one_sale_bottom">
         
 
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Corsair K70 Cerry Mx Red</h5>
-          <h6 class="price_tag">$225.00</h6>
-      </div>
-  </div>
-
-
-  <!-- ============================================= Phone & computer  2st product is here ======================================== -->
-
-
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/m6.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
+      <form action="{{url('/addCart')}}" method="post">
+        {{ csrf_field() }}
 
           <button type="button" class="btn btn-secondary" title="Quick Shop">
             <i class="fa fa-eye"></i>
@@ -952,140 +500,24 @@
           <button type="button" class="btn btn-secondary" title="Add to Wish-list">
             <i class="far fa-heart"></i>
             </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
+            <input name="qty" type="hidden" value="1" />
+            <input type="hidden" name="productId" value="{{$vPhoneAndComputer->product_id}}" />
+          <button type="submit" class="btn btn-secondary" title="Add to Cart">
               <i class="fa fa-shopping-cart"></i>
             </button>
+          </form>
 
-
-          <h5 class="product_name">Samsung Galaxy Note-6</h5>
-          <h6 class="price_tag">$225.00</h6>
+            <a href="{{URL::to('/productDetails/'.$vPhoneAndComputer->product_id)}}"><h5 class="product_name">{{$vPhoneAndComputer -> product_name}}</h5></a>
+            
+          <h6 class="price_tag">{{$vPhoneAndComputer -> product_price}} TK</h6>
       </div>
   </div>
 
 
-  <!-- ============================================= Phone & computer  3rd product is here ======================================== -->
 
+  <?php }?>
 
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/l1.png" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Dell H5656</h5>
-          <h6 class="price_tag">$2299.00</h6>
-      </div>
-  </div>
-
-  <!-- ============================================= Phone & computer  4th product is here ======================================== -->
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/m2.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">vivo Rose Gold Edition</h5>
-          <h6 class="price_tag">$199.00</h6>
-      </div>
-  </div>
-
-  <!-- ============================================= Phone & computer  5th product is here ======================================== -->
-
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/m1.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Titan Multi Dial Watch</h5>
-          <h6 class="price_tag">$2225.00</h6>
-      </div>
-  </div>
-
-
-  <!-- ============================================= Phone & computer  6th product is here ======================================== -->
-
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/pc1.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Full Desktop Setup</h5>
-          <h6 class="price_tag">$2225.00</h6>
-      </div>
-  </div>
+  
 
 
 
@@ -1096,235 +528,7 @@
 
 
 
-<!-- ==================================================================== phone & computer end here ===================================================== -->
 
 
-
-
-
-
-
-<!-- ==================================================================== summer sale start here ===================================================== -->
-
-
-
-
-
-<section>
-
-
-  <!-- =================================================== summer sale heading start here ============================================= -->
-
-
-  <div class="container">
-    <div class="summer_sale-background">
-      <div class="row">
-       <div class="col-md-offset-1 col-lg-12 col-sm-12">
-          <h6 class="summersale_head">
-            SUMMER SALE
-          </h6>
-       </div>
-      </div>
-    </div>
-
-    <!-- =============================================== summer sale heading end here ======================================== -->
-    
-    <div class="row">
-
-
-  <!-- ============================================= summer sale 1st product is here ======================================== -->
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/w3.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Wood Watch</h5>
-          <h6 class="price_tag">$155.00</h6>
-      </div>
-  </div>
-
-
-  <!-- ============================================= summer sale 2st product is here ======================================== -->
-
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/w5.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">White Gold Men Watch</h5>
-          <h6 class="price_tag">$10050.00</h6>
-      </div>
-  </div>
-
-  <!-- ============================================= summer sale 3rd product is here ======================================== -->
-
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/w6.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Casual Watch</h5>
-          <h6 class="price_tag">$220.00</h6>
-      </div>
-  </div>
-
-  <!-- ============================================= summer sale 4th product is here ======================================== -->
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/mf6.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Summer Beach Shirt</h5>
-          <h6 class="price_tag">$110.00</h6>
-      </div>
-  </div>
-
-  <!-- ============================================= summer sale 5th product is here ======================================== -->
-
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/mf9.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Summer Beach Shirt</h5>
-          <h6 class="price_tag">$200.00</h6>
-      </div>
-  </div>
-
-  <!-- ============================================= summer sale 6th product is here ======================================== -->
-
-
-  <div class="col-md-offset-1 col-md-2 col-sm-2">
-    <div  class="product_one_sale_top">
-      <div class="text-center">
-          <img src="images/cf1.jpg" alt="prodcut on sale image" class="img-thumbnail" style="margin-top:1rem;">
-      </div>
-     
-
-      </div>
-
-      <div class="product_one_sale_bottom">
-        
-
-          <button type="button" class="btn btn-secondary" title="Quick Shop">
-            <i class="fa fa-eye"></i>
-          </button>
-          <button type="button" class="btn btn-secondary" title="Add to Wish-list">
-            <i class="far fa-heart"></i>
-            </button>
-          <button type="button" class="btn btn-secondary" title="Add to Cart">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-
-
-          <h5 class="product_name">Children Frock</h5>
-          <h6 class="price_tag">$2225.00</h6>
-      </div>
-  </div>
-
-    </div>
-  </div>
-</section>
-
-
-
-
-
-<!-- ==================================================================== summer sale end here ===================================================== -->
 
 @endsection
