@@ -11,9 +11,9 @@
   <!-- ====================================================== Start Bootstrap CSS import files ==================================================== -->
 
 
-  <link href="assets/bootstrap.min.css" rel="stylesheet">
+  <link href="{{URL::asset('assets/bootstrap.min.css')}}" rel="stylesheet">
   
-  <link href="assets/animate.css" rel="stylesheet">
+  <link href="{{URL::asset('assets/animate.css')}}" rel="stylesheet">
 
 
 
@@ -23,16 +23,16 @@
   <!-- <script src="https://kit.fontawesome.com/7fa72e104c.js"></script> -->
 
   
-  <link href="assets/all.css" rel="stylesheet">
-  <link href="assets/brands.css" rel="stylesheet">
-  <link href="assets/solid.css" rel="stylesheet">
+  <link href="{{URL::asset('assets/all.css')}}" rel="stylesheet">
+  <link href="{{URL::asset('assets/brands.css')}}" rel="stylesheet">
+  <link href="{{URL::asset('assets/solid.css')}}" rel="stylesheet">
 
 
   <!-- ============================================================  End Bootstrap CSS import files ====================================== -->
   
 
   <!-- ============================================================== Start CSS custom file ================================================-->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="{{URL::asset('style.css')}}">
   <!-- ============================================================== End CSS custom file ===================================================-->
 
 
@@ -61,7 +61,7 @@
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark sticky-top">
     <div class="container">
 
-    <a href="index.html">
+    <a href="{{URL::to('/')}}">
         <img src="images/logo4.PNG" alt="brand image" class="img-thumbnail" >
     </a>
     
@@ -73,7 +73,7 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
             <li class="nav-item">
-            <a class="nav-link" href="index.html">HOME</a>
+            <a class="nav-link" href="{{URL::to('/')}}">HOME</a>
               </li>
             <li class="nav-item">
               <a class="nav-link" href="category.html">ALL CATEGORY</a>
@@ -81,17 +81,6 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="#">ELECTRONICS</a>
-              </li>
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Dropdown link
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </div>
               </li>
         </ul>
        
@@ -114,11 +103,30 @@
     </div>
     
     <div class="nav-item" >
-        <a href="" data-placement="bottom" title="cart" class="nav-link" style="font-size:25px;color:#ffffff; " ><i class="fas fa-shopping-cart"></i> </a>
+        <a href="{{url('/showCart')}}" data-placement="bottom" title="cart" class="nav-link" style="font-size:25px;color:#ffffff; " ><i class="fas fa-shopping-cart"></i> </a>
         </div>
 
     <div class="nav-item" >
-        <a href="login.html" data-placement="bottom" title="login" class="nav-link" style="font-size:15px;color:#ff6c6c;"> Login </a>
+  
+    <?php
+      $customerId=Session::get('customer_id');
+      // $customerName=Session::get('customer_name');
+    
+    ?>
+
+      <?php
+        if($customerId !=NULL)
+        {
+      ?>   
+
+        <a href="{{URL::to('/customerLogout')}}" data-placement="bottom" title="login" class="nav-link" name="customerName" style="font-size:15px;color:#ff6c6c;">Logout</a>
+   
+       <?php }else{?>
+
+      <a href="{{URL::to('/loginCheck')}}" data-placement="bottom" title="login" class="nav-link" style="font-size:15px;color:#ff6c6c;"> Login </a>
+
+      <?php }?>
+
         </div>
   </nav>
 
@@ -199,12 +207,12 @@
   <!-- ======================================================================== Start Script import file ================================================= -->
 
 
-  <script src="assets/jquery.js"></script>
-  <script src="assets/bootstrap.min.js"></script>
+  <script src="{{URL::asset('assets/jquery.js')}}"></script>
+  <script src="{{URL::asset('assets/bootstrap.min.js')}}"></script>
 
-  <script src="assets/all.js"></script>
-  <script src="assets/brands.js"></script>
-  <script src="assets/solid.js"></script>
+  <script src="{{URL::asset('assets/all.js')}}"></script>
+  <script src="{{URL::asset('assets/brands.js')}}"></script>
+  <script src="{{URL::asset('assets/solid.js')}}"></script>
 
   <script src="assets/app.js"></script>
   
