@@ -18,6 +18,60 @@
 //front end site
 Route::get('/', 'homeController@index');
 
+Route::get('/', 'homeController@jewelry');
+
+Route::get('/', 'homeController@menFashion');
+
+Route::get('/', 'homeController@phoneAndComputer');
+
+Route::get('/productDetails/{product_id}', 'homeController@productDetails');
+
+
+//cart routes are here
+
+Route::post('/addCart', 'cartController@addCart');
+
+Route::get('/showCart', 'cartController@showCart');
+
+
+Route::get('/deleteCart/{rowId}','cartController@deleteCart');
+
+Route::post('/updateCart', 'cartController@updateCart');
+
+//checkout routes are here
+Route::get('/loginCheck','checkoutController@loginCheck');
+
+
+// customer login routes are here
+
+Route::post('/customerRegistration','checkoutController@customerRegistration');
+
+Route::get('/checkout','checkoutController@checkout');
+
+
+
+Route::post('/customerLogin','checkoutController@customerLogin');
+
+Route::get('/customerLogout','checkoutController@customerLogout');
+
+
+
+//shipping routes are here
+
+Route::post('/saveShippingDetails','checkoutController@saveShippingDetails');
+
+
+
+//payment routes are here
+
+Route::get('/payment','checkoutController@payment');
+
+Route::post('/placeOrder','checkoutController@placeOrder');
+
+
+//show product by category
+Route::get('/productByCategory/{category_id}', 'homeController@showProductByCategory');
+
 
 
 
@@ -28,7 +82,7 @@ Route::get('/logout','superAdminController@logout');
 
 Route::get('/admin', 'adminController@index');
 
-Route::get('/dashboard', 'adminController@showDashboard');
+Route::get('/dashboard', 'superAdminController@index');
 
 Route::post('/admin-dashboard', 'adminController@dashboard');
 
@@ -67,3 +121,32 @@ Route::get('/deleteProduct/{product_id}', 'productController@deleteProduct');
 Route::get('/editProduct/{product_id}', 'productController@editProduct');
 
 Route::post('/updateProduct/{product_id}', 'productController@updateProduct');
+
+
+
+
+
+//Slider routes are here
+
+Route::get('/addSlider', 'sliderController@index');
+
+Route::post('/saveSlider', 'sliderController@saveSlider');
+
+Route::get('/allSlider', 'sliderController@allSlider');
+
+
+Route::get('/inactiveSlider/{slider_id}', 'sliderController@inactiveSlider');
+
+Route::get('/activeSlider/{slider_id}', 'sliderController@activeSlider');
+
+Route::get('/deleteSlider/{slider_id}', 'sliderController@deleteSlider');
+
+
+// order routes are here
+
+Route::get('/manageOrder', 'manageOrderController@manageOrder');
+
+
+
+
+
