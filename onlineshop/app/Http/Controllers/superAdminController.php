@@ -11,6 +11,16 @@ Session_start();
 
 class superAdminController extends Controller
 {
+    
+    public function index()
+    {
+        $this->adminAuth();
+        
+        return view('admin/dashboard');
+       
+    }
+
+
     public function logout()
     {
         // Session::put('admin_name',null);
@@ -20,4 +30,20 @@ class superAdminController extends Controller
 
         return Redirect::to('/admin');
     }
+
+
+    public function adminAuth()
+    {
+        $adminID = Session::get('admin_id');
+        
+        if($adminID)
+        {
+            return;
+        }
+        else
+        {
+            return Redirect::to('/admin')->send();
+        }
+    }
+
 }
